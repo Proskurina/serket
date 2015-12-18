@@ -13,6 +13,7 @@
         counts[date] = counts[date] ? counts[date]+1 : 1;
       };
     };
+
     return counts
   };
 
@@ -53,4 +54,25 @@
       result[i] = Math.round(list2[i]*100/list1[i])
     };
     return result
+  }
+
+  optionsForChart = function(percentageList){
+    options = {
+      showTooltips: false,
+      onAnimationComplete: function () {
+
+        var ctx = this.chart.ctx;
+        ctx.font = this.scale.font;
+        ctx.fillStyle = this.scale.textColor
+        ctx.textAlign = "center";
+        ctx.textBaseline = "bottom";
+
+        ourBars = this.datasets[1].bars
+
+        this.datasets[1].bars.forEach(function (bar) {
+          ctx.fillText(percentageList[ourBars.indexOf(bar)], bar.x, bar.y - 5);
+        });
+      }
+    };
+    return options
   }

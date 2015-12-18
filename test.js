@@ -29,7 +29,7 @@ $( document ).ready(function() {
               data: valuesAll
           },
           {
-              label: "My First dataset",
+              label: "My Second dataset",
               fillColor: "rgba(100,220,220,0.2)",
               strokeColor: "rgba(220,220,220,1)",
               pointColor: "rgba(220,220,220,1)",
@@ -40,29 +40,11 @@ $( document ).ready(function() {
           },
       ]
     };
-
+  
+    var optionsForFirstChart = optionsForChart(percentage1)
 
     var ctx = document.getElementById("myChart").getContext("2d");
-    var myLineChart = new Chart(ctx).Bar(dataForFirstChart, {
-      showTooltips: false,
-      onAnimationComplete: function () {
-
-        var ctx = this.chart.ctx;
-        ctx.font = this.scale.font;
-        ctx.fillStyle = this.scale.textColor
-        ctx.textAlign = "center";
-        ctx.textBaseline = "bottom";
-
-        ourBars = this.datasets[1].bars
-
-        this.datasets[1].bars.forEach(function (bar) {
-
-          ctx.fillText(percentage1[ourBars.indexOf(bar)], bar.x, bar.y - 5);
-
-        });
-
-      }
-    });
+    var myLineChart = new Chart(ctx).Bar(dataForFirstChart, optionsForFirstChart);
 
 
 // Second chart
@@ -79,7 +61,7 @@ $( document ).ready(function() {
 
     valuesSept = vals(countsForSept);
     valuesSeptTrue = vals(countsForSeptTrue);
-    percentage3 = listOfPercentage(valuesSept, valuesSeptTrue)
+    percentage2 = listOfPercentage(valuesSept, valuesSeptTrue)
 
     var dataForSecondChart = {
       labels: Object.keys(countsForSept),
@@ -95,7 +77,7 @@ $( document ).ready(function() {
               data: valuesSept
           },
                    {
-              label: "My First dataset",
+              label: "My Second dataset",
               fillColor: "rgba(100,220,220,0.2)",
               strokeColor: "rgba(220,220,220,1)",
               pointColor: "rgba(220,220,220,1)",
@@ -108,23 +90,7 @@ $( document ).ready(function() {
       ]
     };
 
-    var optionsForSecondChart = {
-      showTooltips: false,
-      onAnimationComplete: function () {
-
-        var ctx = this.chart.ctx;
-        ctx.font = this.scale.font;
-        ctx.fillStyle = this.scale.textColor
-        ctx.textAlign = "center";
-        ctx.textBaseline = "bottom";
-
-        ourBars = this.datasets[1].bars
-
-        this.datasets[1].bars.forEach(function (bar) {
-          ctx.fillText(percentage3[ourBars.indexOf(bar)], bar.x, bar.y - 5);
-        });
-      }
-    }
+    var optionsForSecondChart = optionsForChart(percentage2)
 
     var ctx = document.getElementById("myChart2").getContext("2d");
     var myLineChart = new Chart(ctx).Bar(dataForSecondChart, optionsForSecondChart);
