@@ -1,0 +1,56 @@
+  numberOfSalesByPeriod = function (dataSet, period){
+    var start;
+    if (period === "day"){
+      start = 8
+    } else if (period === "month"){
+      start = 5
+    };
+
+    var counts = {};
+    for(var i = 0; i< dataSet.length; i++) {
+      if (dataSet[i].dispenseDate){
+        var date = dataSet[i].dispenseDate.substr(start,2);
+        counts[date] = counts[date] ? counts[date]+1 : 1;
+      };
+    };
+    return counts
+  };
+
+  trueSales = function(sales){
+    var stateTrue = []
+    for (var i=0; i<sales.length; i++){
+      if (sales[i].statePattern){
+        stateTrue.push(sales[i])
+      }
+    }
+    return stateTrue
+  }
+
+  vals = function(object){
+    val = []
+    for (var o in object) {
+      val.push(object[o])
+    }
+    return val
+  };
+
+  extractMonth = function(data, monthNumber){
+    result = []
+    for (var i=0; i<data.length; i++){
+      if (data[i].dispenseDate){
+        month = data[i].dispenseDate.substr(5,2)
+        if (month === monthNumber){
+          result.push(data[i])
+        };
+      };
+    };
+    return result
+  }
+
+  listOfPercentage = function(list1, list2){
+    result = []
+    for (var i=0; i<list1.length; i++){  
+      result[i] = Math.round(list2[i]*100/list1[i])
+    };
+    return result
+  }
