@@ -11,12 +11,14 @@ $( document ).ready(function() {
     countsForAll = numberOfSalesByPeriod(data, "month")
     countsForAllTrue = numberOfSalesByPeriod(dataTrue, "month")
 
-    valuesAll = vals(countsForAll);
-    valuesAllTrue = vals(countsForAllTrue);
+    keysAll = Object.keys(countsForAll).sort()
+
+    valuesAll = vals(keysAll, countsForAll);
+    valuesAllTrue = vals(keysAll, countsForAllTrue);
     percentage1 = listOfPercentage(valuesAll, valuesAllTrue)
 
     var dataForFirstChart = {
-      labels: Object.keys(countsForAll),
+      labels: keysAll,
       datasets: [
           {
               label: "My First dataset",
@@ -56,15 +58,14 @@ $( document ).ready(function() {
     countsForSept = numberOfSalesByPeriod(sept, "day")
     countsForSeptTrue = numberOfSalesByPeriod(septTrue, "day")
 
-    console.log(countsForSept)
-    console.log(countsForSeptTrue)
+    keysSept = Object.keys(countsForSept).sort()
 
-    valuesSept = vals(countsForSept);
-    valuesSeptTrue = vals(countsForSeptTrue);
+    valuesSept = vals(keysSept, countsForSept);
+    valuesSeptTrue = vals(keysSept, countsForSeptTrue);
     percentage2 = listOfPercentage(valuesSept, valuesSeptTrue)
 
     var dataForSecondChart = {
-      labels: Object.keys(countsForSept),
+      labels: keysSept,
       datasets: [
           {
               label: "My First dataset",

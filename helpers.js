@@ -27,10 +27,11 @@
     return stateTrue
   }
 
-  vals = function(object){
+  vals = function(keys, object){
     val = []
-    for (var o in object) {
-      val.push(object[o])
+    for (var i =0; i<keys.length; i++) {
+      var key = keys[i]
+      object[key] ? val.push(object[key]) : val.push(0)  
     }
     return val
   };
