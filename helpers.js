@@ -11,8 +11,8 @@
   };
 
   startFrom = function(period){
-    if (period === "day"){ return 8 }; 
-    if (period === "month"){ return 5};
+    if (period === "byDay"){ return 8 }; 
+    if (period === "byMonth"){ return 5};
   }
 
   stateTrue = function(listOfItems){
@@ -34,12 +34,13 @@
     return val
   };
 
-  extractMonth = function(data, monthNumber){
+  extractMonth = function(data, monthName){
+    month = {"sep":"09", "oct":"10", "nov":"11", "dec":"12"}
     result = []
     for (var i=0; i<data.length; i++){
       if (data[i].dispenseDate){
-        month = data[i].dispenseDate.substr(5,2)
-        if (month === monthNumber){
+        monthNumber = data[i].dispenseDate.substr(5,2)
+        if (monthNumber === month[monthName]){
           result.push(data[i])
         };
       };
@@ -74,4 +75,56 @@
       }
     };
     return options
+  }
+
+  makeChart = function(data, chartNumber, period, monthNumber){
+
+    if (monthNumber){
+      var data = extractMonth(data, monthNumber)
+    } else {
+      var data = data
+    }
+    
+    var dataTrue = stateTrue(data)
+
+    counts = numberOfSalesByPeriod(data, period)
+    countsTrue = numberOfSalesByPeriod(dataTrue, period)
+
+    keys = Object.keys(counts).sort()
+
+    values = vals(keys, counts);
+    valuesTrue = vals(keys, countsTrue);
+    percentage = listOfPercentage(values, valuesTrue)
+
+    var dataForChart = {
+      labels: keys,
+      datasets: [
+          {
+              label: "My First dataset",
+              fillColor: "rgba(220,220,220,0.2)",
+              strokeColor: "rgba(220,220,220,1)",
+              pointColor: "rgba(220,220,220,1)",
+              pointStrokeColor: "#fff",
+              pointHighlightFill: "#fff",
+              pointHighlightStroke: "rgba(220,220,220,1)",
+              data: values
+          },
+                   {
+              label: "My Second dataset",
+              fillColor: "rgba(100,220,220,0.2)",
+              strokeColor: "rgba(220,220,220,1)",
+              pointColor: "rgba(220,220,220,1)",
+              pointStrokeColor: "#fff",
+              pointHighlightFill: "#fff",
+              pointHighlightStroke: "rgba(220,220,220,1)",
+              data: valuesTrue
+          },
+
+      ]
+    };
+
+    var ctx = document.getElementById(chartNumber).getContext("2d");
+    var myLineChart = new Chart(ctx).Bar(dataForChart, optionsForChart(percentage));
+
+
   }
