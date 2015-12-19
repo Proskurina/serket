@@ -1,6 +1,5 @@
   numberOfSalesByPeriod = function (dataSet, period){
     start = startFrom(period)
-
     var counts = {};
     for(var i = 0; i< dataSet.length; i++) {
       if (dataSet[i].dispenseDate){
@@ -8,18 +7,12 @@
         counts[date] = counts[date] ? counts[date]+1 : 1;
       };
     };
-
     return counts
   };
 
   startFrom = function(period){
-    var startChar;
-    if (period === "day"){
-      startChar = 8
-    } else if (period === "month"){
-      startChar = 5
-    };
-    return startChar
+    if (period === "day"){ return 8 }; 
+    if (period === "month"){ return 5};
   }
 
   stateTrue = function(listOfItems){
