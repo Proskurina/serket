@@ -18,6 +18,7 @@ module.exports = function(config) {
     files: [
       'js/jquery.js',
       'js/**/*.js',
+      'test/mockData.js',
       'test/**/*.spec.js'
     ],
 
